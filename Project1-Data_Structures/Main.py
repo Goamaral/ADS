@@ -1,10 +1,11 @@
-from ListaCirculasDuplamenteLigada import ListaCirculasDuplamenteLigada as List
-from AVL import treeHeader as Avl
+from ListaCircularDuplamenteLigada.ListHeader import ListHeader as List
+from AVL.AvlHeader import AvlHeader as Avl
 import csv
 import time
 
 #DOING:
 	#TODO: pesquisar anos pais
+
 #TODO: remover pais
 #TODO: remover ano
 #TODO: pesquisar paises ano
@@ -13,6 +14,7 @@ import time
 #TODO: criar no com a media atual
 
 #TODO: estrutura focada em complexidade espacial
+	#TODO:
 
 debugging = True
 
@@ -39,17 +41,13 @@ def debug(msg):
 	None
 	None
 	Portugal
-	{1990: None}
-	{1100: None}
 	{2000: 100.0}
-	{1110: None}
+	{1100: 10}
 	{2010: 100.0}
 	{2012: 100.0}
 	PRT
-	{1990: None}
-	{1100: None}
 	{2000: 100.0}
-	{1110: None}
+	{1100: 10}
 	{2010: 100.0}
 	{2012: 100.0}
 	Pais nao encontrado
@@ -61,7 +59,7 @@ def debug(msg):
 	{'Belgium': 100.0}
 	{'United Arab Emirates': 87.22775}
 	...
-	1100
+	1000
 	[]
 	Pais nao encontrado
 	None
@@ -75,7 +73,6 @@ def debug(msg):
 	[]
 	1100
 	[]
-
 	'''
 
 def beautifyListPrint(l,title):
@@ -94,11 +91,11 @@ def main():
 	#List - Lista duplamente ligada circular
 	#Avl - Arvore binaria de pesquisa balanceada personalizada
 	#
-	es = Avl()
+	es = List()
 
 	#Tratar dados do ficheito dados.csv
-	tratamento_de_dados(es)
-
+		#tratamento_de_dados(es)
+	'''
 	#pesquisa insercao edicao remocao
 	start = time.time()
 	#Procurar ano nao existente
@@ -119,7 +116,7 @@ def main():
 
 	#Editar pais existente e data inexistente
 	es.edit(1,'PRT',1100,10)
-	es.edit(0,'Portugal',1110,10)
+	es.edit(0,'Portugal',1100,10)
 
 	#Editar pais existente e data existente
 	es.edit(1,'PRT',1990,20)
@@ -134,8 +131,8 @@ def main():
 	es.remove(0,'Xponent',1990)
 
 	#Remover pais existente e data inexistente
-	es.remove(1,'PRT',1100)
-	es.remove(0,'Portugal',1110)
+	es.remove(1,'PRT',1000)
+	es.remove(0,'Portugal',1000)
 
 	#Remover pais existente e data existente
 	es.remove(1,'PRT',1990)
@@ -149,6 +146,7 @@ def main():
 	#pais existente
 	beautifyListPrint(es.search(0, 'Portugal', None), 'Portugal')
 	beautifyListPrint(es.search(1, 'PRT', None), 'PRT')
+
 	#pais inexistente, ano existente
 	beautifyListPrint(es.search(0, 'Xponent', None), 'Xponent')
 	beautifyListPrint(es.search(1, 'XP', None), 'XP')
@@ -156,8 +154,8 @@ def main():
 	#listar paises de um ano
 	#ano existente
 	beautifyListPrint(es.search(None, None, 1990), '1990')
-	#ano inexistente, ano existente
-	beautifyListPrint(es.search(None, None, 1100), '1100')
+	#ano inexistente
+	beautifyListPrint(es.search(None, None, 1000), '1000')
 
 	#remover pais
 	#pais existente
@@ -176,7 +174,7 @@ def main():
 	#ano inexistente
 	es.remove(None, None, 1100)
 	beautifyListPrint(es.search(None, None, 1100), '1100')
-
+	'''
 	end = time.time()
 
 	#print str(end-start)
@@ -215,6 +213,11 @@ def tratamento_de_dados(es):
 				ano = int(ano)
 				perc = float(perc)
 				es.insert(pais,sigla,ano,perc)
+
+def main1():
+	es = Avl()
+
+	es.insert('Portugal','PRT',1990,100)
 
 if __name__ == "__main__":
 	main()

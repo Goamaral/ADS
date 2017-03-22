@@ -1,113 +1,12 @@
+from AvlNode import AvlNode
+
 debugging = True
 
 def debug(msg):
 	if debugging:
 		print msg
 
-#Mode 0 e Ano !=None: pais e ano
-#Mode 1 e Ano !=None: sigla e ano
-#Mode 0 e Ano ==None: pais
-#Mode 1 e Ano ==None: sigla
-#Mode None e Ano !=None: ano
-
-class Node():
-	def __init__(self,hashPais,pais,sigla):
-		self.hashPais = hashPais
-		self.pais = pais
-		self.sigla = sigla
-		self.anos = {}
-		self.left = None
-		self.right = None
-
-	def set_data(self, ano, perc):
-		self.anos[ano] = perc
-
-	def get_data(self,ano):
-		try:
-			return self.anos[ano]
-		except KeyError:
-			return None
-
-	def get_list_anos(self):
-		out = []
-		for key in self.anos.keys():
-			obj = {}
-			obj[key]=self.anos[key];
-			out.append(obj)
-		return out
-
-	def removeAno(self, ano):
-		try:
-			del self.anos[ano]
-		except KeyError:
-			return None
-
-class treeHeader():
-	def __init__(self):
-		self.dicSiglas = {}
-		self.tree = AVLTree()
-
-	#Permite adicionar percentagem para um pais num ano, quer o pais exista ou nao
-	#Nao achamos relevante inserir um ano sem dados ou um pais sem dados
-	def insert(self,pais,sigla,ano,perc):
-		self.dicSiglas[sigla]=pais
-		self.tree.insert(pais,sigla,ano,perc)
-
-	#Permite editar a percentagem de um pais(Sigla dependendo do mode) num determinado ano, devolve None se o pais ou o ano nao for encontrado
-	def edit(self,mode,nome,ano,perc):
-		result = self.searchNode(mode, nome)
-		if result == None:
-			debug('Pais nao encontrado')
-			return None
-		else:
-			return result.set_data(ano,perc)
-
-	#Dependendo do mode e as variaveis ano e nome, devolve a percentagem para um pais(Sigla) num determinado ano, uma lista dos paises num determinado ano ou uma lista dos anos de um determinado pais
-	def search(self, mode, nome, ano):
-		if mode != None:
-			result = self.searchNode(mode, nome)
-			if result == None:
-				debug('Pais nao encontrado')
-				return None;
-			if ano != None:
-				return result.get_data(ano)
-			else:
-				#listar anos de um pais
-				return result.get_list_anos()
-		else:
-			#listar todos os paises de um ano
-			if ano == None:
-				return None
-			return self.tree.collectPaisesAno(ano,[])
-
-	#Procura o no para o mode e input inseridos
-	def searchNode(self,mode,input):
-		if mode == 0:
-			return self.tree.searchByPais(hash(input))
-		else:
-			try:
-				pais = self.dicSiglas[input]
-			except KeyError:
-				return None
-			return self.tree.searchByPais(hash(pais))
-
-	#Dependendo do mode e das variaveis ano e nome, remove uma percentagem para um ano e pais especifico , ou remove um pais especifico ou um ano especifico
-	def remove(self, mode, nome, ano):
-		if mode != None:
-			if ano != None:
-				result = self.searchNode(mode, nome)
-				if result != None:
-					result.set_data(ano,None)
-				else:
-					debug('Pais nao encontrado')
-			else:
-				#remover um pais
-				self.tree.remove(nome)
-		else:
-			#remover um ano
-			self.tree.removeAno(ano)
-
-class AVLTree():
+class AvlTree():
 	def __init__(self):
 		self.node = None
 		self.height = -1
@@ -134,8 +33,6 @@ class AVLTree():
 			return None
 		else:
 			return None
-
-
 
 	def collectPaisesAno(self, ano, l):
 		if self.node == None:
@@ -164,22 +61,19 @@ class AVLTree():
 	def insert(self,pais,sigla,ano,perc):
 		hashPais = hash(pais)
 
-		newnode = Node(hashPais,pais,sigla)
+		newnode = AvlNode(hashPais,pais,sigla)
 
 		if self.node == None:
 			newnode.set_data(ano,perc)
 			self.node = newnode
-			self.node.left = AVLTree()
-			self.node.right = AVLTree()
+			self.node.left = AvlTree()
+			self.node.right = AvlTree()
 		else:
 			if hashPais < self.node.hashPais:
 				self.node.left.insert(pais,sigla,ano,perc)
 			elif hashPais > self.node.hashPais:
 				self.node.right.insert(pais,sigla,ano,perc)
 			elif hashPais == self.node.hashPais:
-				if self.node.sigla != sigla:
-					print 'Par sigla, pais inseridos diferem do par ja inserido com a mesma sigla'
-					return None
 				self.node.set_data(ano,perc)
 				return
 
@@ -194,8 +88,6 @@ class AVLTree():
 			return self.node.left.searchByPais(hashPais)
 		else:
 			return self.node
-
-
 
 	### HEIGHT AND IS_LEAF
 	def height(self):

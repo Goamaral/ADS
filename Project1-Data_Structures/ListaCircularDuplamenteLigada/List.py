@@ -9,7 +9,7 @@ def debug(msg):
 #Mode 0: nome
 #Mode 1: sigla
 
-class ListaCirculasDuplamenteLigada:
+class List:
 	def __init__(self):
 		self.head = None
 
