@@ -14,3 +14,6 @@ class Node:
 		self.perc = None
 		self.paisNode = None
 		self.anoNode = None
+
+	def set_data(self,perc):
+		self.perc = perc

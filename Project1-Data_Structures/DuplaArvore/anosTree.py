@@ -6,22 +6,31 @@ class anosTree:
 		self.height = -1
 		self.balance = 0;
 
-#TODO - ( anosTreeNode setdata )
 	def insert(self,pais,sigla,ano,node):
-		newnode = anosTreeNode(ano)
-
 		if self.node == None:
-			newnode.set_data(pais,sigla,node)
+			newnode = anosTreeNode(ano)
+			notDone = newnode.insert(pais,sigla,node)
 			self.node = newnode
 			self.node.left = anosTree()
 			self.node.right = anosTree()
+			self.rebalance()
+			return notDone
 		else:
 			if ano < self.node.ano:
-				self.node.left.insert(pais,sigla,ano,node)
+				self.node.left.set_data(pais,sigla,ano,node)
 			elif ano > self.node.ano:
-				self.node.right.insert(pais,sigla,ano,node)
+				self.node.right.set_data(pais,sigla,ano,node)
 			elif ano == self.node.ano:
-				self.node.set_data(pais,sigla,perc)
-				return
+				notDone = self.node.set_data(pais,sigla,node)
+				return notDone
+			self.rebalance()
 
-		self.rebalance()
+	def search(self,ano):
+		if self.node == None:
+			return None
+		if ano > self.node.ano:
+			return self.node.right.searchNode(ano)
+		elif ano < self.node.ano:
+			return self.node.left.searchNode(ano)
+		else:
+			return self.node

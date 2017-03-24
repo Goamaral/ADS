@@ -1,9 +1,8 @@
 from anosAvl import anosAvl
 
 class ListNode:
-	def __init__(self,hashPais,hashSigla,pais,sigla):
+	def __init__(self,hashPais,pais,sigla):
 		self.hashPais = hashPais
-		self.hashSigla = hashSigla
 		self.pais = pais
 		self.sigla = sigla
 		self.anos = anosAvl()
