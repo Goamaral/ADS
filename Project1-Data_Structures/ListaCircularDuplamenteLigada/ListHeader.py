@@ -1,20 +1,72 @@
 from List import List
+from hashNumber import hashNumber
+from dicSiglas import dicSiglas
+
+debugging = True
+
+def debug(msg):
+	if debugging:
+		print msg
 
 class ListHeader:
 	def __init__(self):
-		self.average = 0
-		self.sum = 0
+		self.middleNode = None
+		self.secondMiddleNode = None
+		self.middle = 0
 		self.nNodes = 0
 		self.list = List()
+		self.dicSiglas = dicSiglas()
+
+	#Devolve pais associado a sigla. Se a sigla nao existir devolve None
+	def translateSigla(self, input):
+		result = self.dicSiglas.search(input)
+		if result == None:
+			debug('Sigla nao encontrada')
+		return result
+
+	#Atualiza o dicionario de siglas com o par sigla pais
+	def addToSiglaDictionary(self, sigla, pais):
+		self.dicSiglas.add(sigla,pais)
 
 	#Permite adicionar percentagem para um pais num ano, quer o pais exista ou nao
 	#Nao achamos relevante inserir um ano sem dados ou um pais sem dados
 	def insert(self,pais,sigla,ano,perc):
-		isNewNode = self.list.insert(pais,sigla,ano,perc)
+		self.addToSiglaDictionary(sigla, pais)
+		(isNewNode, newNode, msg) = self.list.insert(pais,sigla,ano,perc)
 		if isNewNode:
+			if self.middleNode == None:
+				self.middleNode = newNode
+			elif self.nNodes % 2 != 0:
+				if newNode.hashPais > self.middleNode.hashPais:
+					self.secondMiddleNode = newNode
+				elif newNode.hashPais < self.middleNode.hashPais:
+					backup = self.middleNode
+					self.middleNode = newNode
+					self.secondMiddleNode = backup
+				else:
+					raise ValueError('Erro no calculo da mediana (nNodes impar)')
+				self.middle = (self.middleNode.hashPais + self.secondMiddleNode.hashPais) / 2
+			else:
+				#centro
+				if newNode.hashPais > self.middleNode.hashPais and newNode.hashPais < self.secondMiddleNode.hashPais:
+					self.secondMiddleNode = None
+					self.middleNode = newNode
+				#esquerda
+				elif newNode.hashPais > self.secondMiddleNode.hashPais:
+					backup = self.secondMiddleNode
+					self.secondMiddleNode = None
+					self.middleNode = backup
+				#direita
+				elif newNode.hashPais < self.middleNode.hashPais:
+					backup = self.middleNode
+					self.secondMiddleNode = None
+					self.middleNode = backup
+				else:
+					raise ValueError('Erro no calculo da mediana (nNodes par)')
+
+				self.middle = self.middleNode.hashPais
+
 			self.nNodes = self.nNodes + 1
-			self.sum = self.sum + ord(pais[0]) - ord('a') + 1
-			self.average = self.sum / self.nNodes
 
 	#Permite editar a percentagem de um pais(Sigla dependendo do mode) num determinado ano, devolve None se o pais ou o ano nao for encontrado
 	def edit(self,mode,nome,ano,perc):
@@ -44,26 +96,59 @@ class ListHeader:
 			return self.list.collectPaisesAno(ano,[])
 
 	#Procura o no para o mode e input inseridos
-	def searchNode(self,mode,input):
+	def searchNode(self, mode, nome):
+		current = self.list.head
+		if current == None:
+			return None
+
 		if mode == 0:
-			return self.list.searchByPais(hash(input))
+			pais = nome
 		else:
-			return self.list.searchBySigla(hash(input))
+			pais = self.translateSigla(nome)
+			if pais == None:
+				return None
+
+		hashCode = hashNumber(pais)
+
+		if hashCode > self.middle:
+			return self.list.leftSearch(mode, hashCode)
+		else:
+			return self.list.rightSearch(mode, hashCode)
+
 
 	#Dependendo do mode e das variaveis ano e nome, remove uma percentagem para um ano e pais especifico , ou remove um pais especifico ou um ano especifico
 	def remove(self, mode, nome, ano):
 		if mode != None:
+			result = self.searchNode(mode, nome)
 			if ano != None:
-				result = self.searchNode(mode, nome)
 				if result != None:
 					result.set_data(ano,None)
 				else:
 					debug('Pais nao encontrado')
 			else:
-				if mode == 1:
-					nome = self.translateSigla(nome)
 				#remover um pais
-				self.tree.remove(nome)
+				if result != None:
+					if self.nNodes % 2 != 0:
+						self.middleNode = result.prev
+						self.secondMiddleNode = result.next
+						self.middle = (self.middleNode.hashPais + self.searchNode.hashPais) / 2
+					else:
+						if result.hashPais > self.middleNode.hashPais:
+							self.secondMiddleNode = None
+						elif result.hashPais < self.secondMiddleNode:
+							backup = self.secondMiddleNode
+							self.secondMiddleNode = None
+							self.middleNode = backup
+						else:
+							raise ValueError('Erro no calculo da mediana (nNodes par)')
+
+						self.middle = self.middleNode.hashPais
+
+					self.list.removeNode(result)
+					self.nNodes = self.nNodes - 1
+
+				else:
+					debug('Pais nao encontrado')
 		else:
 			#remover um ano
-			self.tree.removeAno(ano)
+			self.list.removeAno(ano)

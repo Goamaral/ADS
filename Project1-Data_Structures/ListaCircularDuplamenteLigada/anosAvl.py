@@ -77,9 +77,9 @@ class anosAvl:
 		if self.node == None:
 			return None
 		if hashSigla > self.node.hashSigla:
-			return self.node.right.search(hashSigla)
+			return self.node.right.search(input)
 		elif hashSigla < self.node.hashSigla:
-			return self.node.left.search(hashSigla)
+			return self.node.left.search(input)
 		else:
 			return self.node.pais
 

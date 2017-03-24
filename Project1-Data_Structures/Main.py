@@ -2,19 +2,7 @@ from ListaCircularDuplamenteLigada.ListHeader import ListHeader as List
 from AVL.AvlHeader import AvlHeader as Avl
 import csv
 import time
-
-#DOING:
-	#TODO: pesquisar anos pais
-
-#TODO: remover pais
-#TODO: remover ano
-#TODO: pesquisar paises ano
-#TODO: usar hash para as siglas
-#TODO: inserir alfabeticamente na lista
-#TODO: criar no com a media atual
-
-#TODO: estrutura focada em complexidade espacial
-	#TODO:
+from hashNumber import hashNumber
 
 debugging = True
 
@@ -62,9 +50,11 @@ def debug(msg):
 	1000
 	[]
 	Pais nao encontrado
+	Pais nao encontrado
 	None
 	Pais nao encontrado
 	None
+	Pais nao encontrado
 	Pais nao encontrado
 	None
 	Pais nao encontrado
@@ -94,8 +84,8 @@ def main():
 	es = List()
 
 	#Tratar dados do ficheito dados.csv
-		#tratamento_de_dados(es)
-	'''
+	tratamento_de_dados(es)
+
 	#pesquisa insercao edicao remocao
 	start = time.time()
 	#Procurar ano nao existente
@@ -122,6 +112,7 @@ def main():
 	es.edit(1,'PRT',1990,20)
 	debug(es.search(1, 'PRT', 1990))
 	debug(es.search(0, 'Portugal', 1990))
+
 	es.edit(0,'Portugal',1990,50)
 	debug(es.search(1, 'PRT', 1990))
 	debug(es.search(0, 'Portugal', 1990))
@@ -144,7 +135,7 @@ def main():
 
 	#listar anos de um pais
 	#pais existente
-	beautifyListPrint(es.search(0, 'Portugal', None), 'Portugal')
+	beautifyListPrint(es.search(0, 'Germany', None), 'Germany')
 	beautifyListPrint(es.search(1, 'PRT', None), 'PRT')
 
 	#pais inexistente, ano existente
@@ -166,7 +157,6 @@ def main():
 	es.remove(0, 'Xponent', None)
 	debug(es.search(0, 'Xponent', None))
 	debug(es.search(1, 'XP', None))
-
 	#remover ano
 	#ano existente
 	es.remove(None, None, 1990)
@@ -174,10 +164,10 @@ def main():
 	#ano inexistente
 	es.remove(None, None, 1100)
 	beautifyListPrint(es.search(None, None, 1100), '1100')
-	'''
+
 	end = time.time()
 
-	#print str(end-start)
+	print str(end-start)
 
 def tratamento_de_dados(es):
 	rows = []

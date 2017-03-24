@@ -1,4 +1,5 @@
 from AvlNode import AvlNode
+from hashNumber import hashNumber
 
 debugging = True
 
@@ -59,7 +60,7 @@ class AvlTree():
 			return l
 
 	def insert(self,pais,sigla,ano,perc):
-		hashPais = hash(pais)
+		hashPais = hashNumber(pais)
 
 		newnode = AvlNode(hashPais,pais,sigla)
 
@@ -175,7 +176,7 @@ class AvlTree():
 		return node
 
 	def remove(self, input):
-		hashPais = hash(input)
+		hashPais = hashNumber(input)
 		if self.node != None:
 			if self.node.hashPais == hashPais:
 				if self.node.left.node == None and self.node.right.node == None:
@@ -201,5 +202,5 @@ class AvlTree():
 				self.node.right.remove(input)
 
 			self.rebalance()
-		else:
-			return
+
+		return False
