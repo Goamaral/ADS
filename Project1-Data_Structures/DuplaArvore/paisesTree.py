@@ -1,7 +1,7 @@
 from paisesTreeNode import paisesTreeNode
 from hashNumber import hashNumber
 
-class paisTree:
+class paisesTree:
 	def __init__(self):
 		self.node = None
 		self.height = -1
@@ -36,8 +36,8 @@ class paisTree:
 			newnode = paisesTreeNode(pais,hashPais,sigla)
 			newnode.set_data(ano,node)
 			self.node = newnode
-			self.node.left = paisTree()
-			self.node.right = paisTree()
+			self.node.left = paisesTree()
+			self.node.right = paisesTree()
 			self.rebalance()
 			return
 		else:
