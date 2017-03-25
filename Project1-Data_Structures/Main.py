@@ -87,8 +87,8 @@ def main():
 	#Tratar dados do ficheito dados.csv
 	tratamento_de_dados(es)
 
-	#pesquisa insercao edicao remocao
-	start = time.time()
+	#es.paisesTree.listPaises()
+
 	#Procurar ano nao existente
 	#Por sigla
 	debug(es.search(1, 'PRT', 1950))
@@ -158,6 +158,7 @@ def main():
 	es.remove(0, 'Xponent', None)
 	debug(es.search(0, 'Xponent', None))
 	debug(es.search(1, 'XP', None))
+
 	#remover ano
 	#ano existente
 	es.remove(None, None, 1990)
@@ -165,10 +166,6 @@ def main():
 	#ano inexistente
 	es.remove(None, None, 1100)
 	beautifyListPrint(es.search(None, None, 1100), '1100')
-
-	end = time.time()
-
-	print str(end-start)
 
 def tratamento_de_dados(es):
 	rows = []

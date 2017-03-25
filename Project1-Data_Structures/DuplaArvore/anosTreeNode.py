@@ -6,7 +6,8 @@ class anosTreeNode:
 		self.anosTreePaisesTree = anosTreePaisesTree()
 
 	def set_data(self,pais,sigla,node):
-		return self.anosTreePaisesTree.insert(pais,sigla,node)
+		notDone = self.anosTreePaisesTree.insert(pais,sigla,node)
+		return notDone
 
 	def get_list_paises(self):
 		return self.anosTreePaisesTree.collectPaises([])

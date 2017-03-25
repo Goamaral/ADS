@@ -123,7 +123,10 @@ class DuplaArvoreHeader():
 				if mode == 0 or mode == 1:
 					result = self.searchNode(mode,nome)
 					node = Node(None)
-					result.set_data(ano,node)
+					if result != None:
+						result.set_data(ano,node)
+					else:
+						debug('Pais nao encontrado')
 				else:
 					raise ValueError('Modo nao suportado - modo nao suportado com ano especificado')
 		#modo ano = remover ano

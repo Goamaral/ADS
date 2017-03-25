@@ -5,7 +5,7 @@ class paisesTreeAnosTreeNode:
 
 	def set_data(self,node):
 		if self.node == None:
-			node.setAnoLink(self)
+			self.node = node
 		else:
 			self.node.set_data(node.perc)
 
@@ -13,4 +13,4 @@ class paisesTreeAnosTreeNode:
 		if self.node == None:
 			return None
 		else:
-			return self.node.perc
+			return self.node.get_data()
