@@ -1,5 +1,5 @@
 from anosTree import anosTree
-from paisesTree import paisTree
+from paisesTree import paisesTree
 from dicSiglas import dicSiglas
 from hashNumber import hashNumber
 from Node import Node
