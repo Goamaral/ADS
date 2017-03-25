@@ -1,5 +1,6 @@
 from ListaCircularDuplamenteLigada.ListHeader import ListHeader as List
 from AVL.AvlHeader import AvlHeader as Avl
+from DuplaArvore.DuplaArvoreHeader import DuplaArvoreHeader as DoubleAvl
 import csv
 import time
 from hashNumber import hashNumber
@@ -81,7 +82,7 @@ def main():
 	#List - Lista duplamente ligada circular
 	#Avl - Arvore binaria de pesquisa balanceada personalizada
 	#
-	es = List()
+	es = DoubleAvl()
 
 	#Tratar dados do ficheito dados.csv
 	tratamento_de_dados(es)

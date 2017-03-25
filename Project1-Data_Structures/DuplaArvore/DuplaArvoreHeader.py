@@ -45,6 +45,7 @@ class DuplaArvoreHeader():
 	#Permite editar a percentagem de um pais(Sigla dependendo do mode) num determinado ano, devolve None se o pais nao for encontrado
 	def edit(self,mode,nome,ano,perc):
 		if mode == None:
+			raise ValueError('Edicao nao suporta edicao no modo None')
 			return
 		result = self.searchNode(mode, nome)
 		if result == None:
@@ -93,6 +94,42 @@ class DuplaArvoreHeader():
 		else:
 			raise ValueError('A very specific bad thing happened')
 
-#TODO - IN OUT
 	#Dependendo do mode e das variaveis ano e nome, remove uma percentagem para um ano e pais especifico , ou remove um pais especifico ou um ano especifico
 	def remove(self, mode, nome, ano):
+		#Se o pais ou sigla forem especificados
+		if mode != None:
+			#Ano nao especificado = remover pais
+			if ano == None:
+				#Se o pais foi passado como parametro
+				if mode == 0:
+					success = self.paisesTree.remove(nome)
+					if success != False:
+						self.anosTree.removePais(nome)
+					else:
+						debug('Remocao feita sem sucesso')
+				#Se foi passado como argumento uma sigla
+				elif mode == 1:
+					pais = self.translateSigla(nome)
+					success = self.paisesTree.remove(pais)
+					if success != False:
+						self.anosTree.removePais(pais)
+					else:
+						debug('Remocao feita sem sucesso')
+				else:
+					raise raise ValueError('Modo nao suportado - modo nao suportado com ano nao especificado')
+			#Ano especificado
+			else:
+				#Se o pais ou sigla foi passado como parametro
+				if mode == 0 or mode == 1:
+					result = self.searchNode(mode,nome)
+					node = Node(None)
+					result.set_data(ano,node)
+				else:
+					raise ValueError('Modo nao suportado - modo nao suportado com ano especificado')
+		#modo ano = remover ano
+		else:
+			success = self.anosTree.remove(ano)
+			if success != False:
+				self.paisesTree.removeAno(ano)
+			else:
+				debug('Remocao feita sem sucesso')

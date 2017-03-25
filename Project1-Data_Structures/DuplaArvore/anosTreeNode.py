@@ -10,3 +10,6 @@ class anosTreeNode:
 
 	def get_list_paises(self):
 		return self.anosTreePaisesTree.collectPaises([])
+
+	def removePais(self,pais):
+		self.anosTreePaisesTree.remove(pais)
