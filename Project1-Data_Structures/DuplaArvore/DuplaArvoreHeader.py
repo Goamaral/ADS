@@ -116,7 +116,7 @@ class DuplaArvoreHeader():
 					else:
 						debug('Remocao feita sem sucesso')
 				else:
-					raise raise ValueError('Modo nao suportado - modo nao suportado com ano nao especificado')
+					raise ValueError('Modo nao suportado - modo nao suportado com ano nao especificado')
 			#Ano especificado
 			else:
 				#Se o pais ou sigla foi passado como parametro
