@@ -1,0 +1,9 @@
+Instale o python 2.7
+Abra a linha de comandos
+Va para a diretoria do projeto
+corra na linha de comandos:
+	python Main.py
+
+Sera lhe apresentado um menu para a escolha da estrutura
+De seguida um menu de selecao do mode de benchmarks ou normal
+Dentro de um dos modos sera apresentado ainda outro menu onde tera acesso as funcionalidades implementadas 

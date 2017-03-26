@@ -4,24 +4,25 @@ from dicSiglas import dicSiglas
 
 debugging = True
 
-def debug(msg):
-	if debugging:
-		print msg
-
 class ListHeader:
-	def __init__(self):
+	def __init__(self,debugging):
 		self.middleNode = None
 		self.secondMiddleNode = None
 		self.middle = 0
 		self.nNodes = 0
 		self.list = List()
 		self.dicSiglas = dicSiglas()
+		self.debugging = debugging
+
+	def debug(self,msg):
+		if self.debugging:
+			print msg
 
 	#Devolve pais associado a sigla. Se a sigla nao existir devolve None
 	def translateSigla(self, input):
 		result = self.dicSiglas.search(input)
 		if result == None:
-			debug('Sigla nao encontrada')
+			self.debug('Sigla nao encontrada')
 		return result
 
 	#Atualiza o dicionario de siglas com o par sigla pais
@@ -72,7 +73,7 @@ class ListHeader:
 	def edit(self,mode,nome,ano,perc):
 		result = self.searchNode(mode, nome)
 		if result == None:
-			debug('Pais nao encontrado')
+			self.debug('Pais nao encontrado')
 			return None
 		else:
 			return result.set_data(ano,perc)
@@ -82,7 +83,7 @@ class ListHeader:
 		if mode != None:
 			result = self.searchNode(mode, nome)
 			if result == None:
-				debug('Pais nao encontrado')
+				self.debug('Pais nao encontrado')
 				return None;
 			if ano != None:
 				return result.get_data(ano)
@@ -111,9 +112,9 @@ class ListHeader:
 		hashCode = hashNumber(pais)
 
 		if hashCode > self.middle:
-			return self.list.leftSearch(mode, hashCode)
+			return self.list.leftSearch(hashCode)
 		else:
-			return self.list.rightSearch(mode, hashCode)
+			return self.list.rightSearch(hashCode)
 
 
 	#Dependendo do mode e das variaveis ano e nome, remove uma percentagem para um ano e pais especifico , ou remove um pais especifico ou um ano especifico
@@ -124,7 +125,7 @@ class ListHeader:
 				if result != None:
 					result.set_data(ano,None)
 				else:
-					debug('Pais nao encontrado')
+					self.debug('Pais nao encontrado')
 			else:
 				#remover um pais
 				if result != None:
@@ -148,7 +149,7 @@ class ListHeader:
 					self.nNodes = self.nNodes - 1
 
 				else:
-					debug('Pais nao encontrado')
+					self.debug('Pais nao encontrado')
 		else:
 			#remover um ano
 			self.list.removeAno(ano)

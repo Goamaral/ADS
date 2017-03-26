@@ -2,12 +2,6 @@ from AvlTree import AvlTree
 from dicSiglas import dicSiglas
 from hashNumber import hashNumber
 
-debugging = True
-
-def debug(msg):
-	if debugging:
-		print msg
-
 #Mode 0 e Ano !=None: pais e ano
 #Mode 1 e Ano !=None: sigla e ano
 #Mode 0 e Ano ==None: pais
@@ -15,15 +9,20 @@ def debug(msg):
 #Mode None e Ano !=None: ano
 
 class AvlHeader():
-	def __init__(self):
+	def __init__(self,debugging=True):
 		self.dicSiglas = dicSiglas()
 		self.tree = AvlTree()
+		self.debugging = debugging
+
+	def debug(self,msg):
+		if self.debugging:
+			print msg
 
 	#Devolve pais associado a sigla. Se a sigla nao existir devolve None
 	def translateSigla(self, input):
 		result = self.dicSiglas.search(input)
 		if result == None:
-			debug('Sigla nao encontrada')
+			self.debug('Sigla nao encontrada')
 		return result
 
 	#Atualiza o dicionario de siglas com o par sigla pais
@@ -40,7 +39,7 @@ class AvlHeader():
 	def edit(self,mode,nome,ano,perc):
 		result = self.searchNode(mode, nome)
 		if result == None:
-			debug('Pais nao encontrado')
+			self.debug('Pais nao encontrado')
 			return None
 		else:
 			return result.set_data(ano,perc)
@@ -50,7 +49,7 @@ class AvlHeader():
 		if mode != None:
 			result = self.searchNode(mode, nome)
 			if result == None:
-				debug('Pais nao encontrado')
+				self.debug('Pais nao encontrado')
 				return None;
 			if ano != None:
 				return result.get_data(ano)
@@ -81,14 +80,14 @@ class AvlHeader():
 				if result != None:
 					result.set_data(ano,None)
 				else:
-					debug('Pais nao encontrado')
+					self.debug('Pais nao encontrado')
 			else:
 				if mode == 1:
 					nome = self.translateSigla(nome)
 				#remover um pais
 				success = self.tree.remove(nome)
 				if success == False:
-					debug('Pais nao encontrado')
+					self.debug('Pais nao encontrado')
 		else:
 			#remover um ano
 			self.tree.removeAno(ano)

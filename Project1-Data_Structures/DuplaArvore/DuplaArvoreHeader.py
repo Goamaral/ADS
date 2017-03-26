@@ -4,12 +4,6 @@ from dicSiglas import dicSiglas
 from hashNumber import hashNumber
 from Node import Node
 
-debugging = True
-
-def debug(msg):
-	if debugging:
-		print msg
-
 #Mode 0 e Ano !=None: pais e ano
 #Mode 1 e Ano !=None: sigla e ano
 #Mode 0 e Ano ==None: pais
@@ -17,16 +11,21 @@ def debug(msg):
 #Mode None e Ano !=None: ano
 
 class DuplaArvoreHeader():
-	def __init__(self):
+	def __init__(self,debugging=True):
 		self.dicSiglas = dicSiglas()
 		self.anosTree = anosTree()
 		self.paisesTree = paisesTree()
+		self.debugging = debugging
+
+	def debug(self,msg):
+		if self.debugging:
+			print msg
 
 	#Devolve pais associado a sigla. Se a sigla nao existir devolve None
 	def translateSigla(self, input):
 		result = self.dicSiglas.search(input)
 		if result == None:
-			debug('Sigla nao encontrada')
+			self.debug('Sigla nao encontrada')
 		return result
 
 	#Atualiza o dicionario de siglas com o par sigla pais
@@ -49,7 +48,7 @@ class DuplaArvoreHeader():
 			return
 		result = self.searchNode(mode, nome)
 		if result == None:
-			debug('Pais nao encontrado')
+			self.debug('Pais nao encontrado')
 			return
 		else:
 			newNode = Node(perc)
@@ -63,7 +62,7 @@ class DuplaArvoreHeader():
 		if mode != None:
 			result = self.searchNode(mode, nome)
 			if result == None:
-				debug('Pais nao encontrado')
+				self.debug('Pais nao encontrado')
 				return None;
 			if ano != None:
 				return result.get_data(ano)
@@ -76,7 +75,7 @@ class DuplaArvoreHeader():
 				return None
 			result = self.searchNode(mode, ano)
 			if result == None:
-				debug('Ano nao encontrado')
+				self.debug('Ano nao encontrado')
 				return None;
 			return result.get_list_paises()
 
@@ -106,7 +105,7 @@ class DuplaArvoreHeader():
 					if success != False:
 						self.anosTree.removePais(nome)
 					else:
-						debug('Remocao feita sem sucesso')
+						self.debug('Remocao feita sem sucesso')
 				#Se foi passado como argumento uma sigla
 				elif mode == 1:
 					pais = self.translateSigla(nome)
@@ -114,7 +113,7 @@ class DuplaArvoreHeader():
 					if success != False:
 						self.anosTree.removePais(pais)
 					else:
-						debug('Remocao feita sem sucesso')
+						self.debug('Remocao feita sem sucesso')
 				else:
 					raise ValueError('Modo nao suportado - modo nao suportado com ano nao especificado')
 			#Ano especificado
@@ -126,7 +125,7 @@ class DuplaArvoreHeader():
 					if result != None:
 						result.set_data(ano,node)
 					else:
-						debug('Pais nao encontrado')
+						self.debug('Pais nao encontrado')
 				else:
 					raise ValueError('Modo nao suportado - modo nao suportado com ano especificado')
 		#modo ano = remover ano
@@ -135,4 +134,4 @@ class DuplaArvoreHeader():
 			if success != False:
 				self.paisesTree.removeAno(ano)
 			else:
-				debug('Remocao feita sem sucesso')
+				self.debug('Remocao feita sem sucesso')

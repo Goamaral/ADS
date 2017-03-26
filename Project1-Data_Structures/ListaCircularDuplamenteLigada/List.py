@@ -55,7 +55,7 @@ class List:
 		current = self.head
 		#vazio
 		if self.head == None:
-			newNode = ListNode(hashPais,hashSigla,pais,sigla);
+			newNode = ListNode(hashPais,pais,sigla);
 			self.head = newNode;
 			newNode.next = self.head
 			newNode.prev = self.head
@@ -71,7 +71,7 @@ class List:
 			else:
 				#antes da cabeca
 				if hashPais < self.head.hashPais:
-					newNode = ListNode(hashPais,hashSigla,pais,sigla)
+					newNode = ListNode(hashPais,pais,sigla)
 					prevNode = self.head.prev
 					newNode.next = self.head
 					self.head.prev = newNode
@@ -100,7 +100,7 @@ class List:
 				#antes da cabeca
 				if hashPais < current.hashPais:
 					prevNode = current.prev
-					newNode = ListNode(hashPais,hashSigla,pais,sigla)
+					newNode = ListNode(hashPais,pais,sigla)
 					newNode.set_data(ano,perc)
 					prevNode.next = newNode
 					newNode.prev = prevNode
@@ -121,7 +121,7 @@ class List:
 					#antes do no atual
 					if hashPais < current.hashPais:
 						prevNode = current.prev
-						newNode = ListNode(hashPais,hashSigla,pais,sigla)
+						newNode = ListNode(hashPais,pais,sigla)
 						newNode.set_data(ano,perc)
 						prevNode.next = newNode
 						newNode.prev = prevNode
@@ -138,7 +138,7 @@ class List:
 				else:
 					if hashPais < current.hashPais:
 						prevNode = current.prev
-						newNode = ListNode(hashPais,hashSigla,pais,sigla)
+						newNode = ListNode(hashPais,pais,sigla)
 						newNode.set_data(ano,perc)
 						prevNode.next = newNode
 						newNode.prev = prevNode
@@ -146,7 +146,7 @@ class List:
 						newNode.next = current
 						return (True, newNode, 'penultimo')
 					elif hashPais > current.hashPais:
-						newNode = ListNode(hashPais,hashSigla,pais,sigla)
+						newNode = ListNode(hashPais,pais,sigla)
 						newNode.set_data(ano,perc)
 						newNode.next = self.head
 						self.head.prev = newNode
@@ -171,73 +171,32 @@ class List:
 			if node == self.head:
 				self.head = nextNode
 
-
-	def edit(self,mode,nome,ano,perc):
-		result = self.searchNode(mode, nome)
-		if result == None:
-			debug('Pais nao encontrado')
-			return None
-		else:
-			return result.set_data(ano,perc)
-
-	def search(self, mode, nome, ano):
-		result = self.searchNode(mode, nome)
-		if result == None:
-			debug('Pais nao encontrado')
-			return None
-		else:
-			return result.get_data(ano)
-
-	def rightSearch(self, mode, hashCode):
+	def rightSearch(self, hashCode):
 		current = self.head
 		if self.head == None:
 			return None
-		if mode == 0:
-			if hashCode == current.hashPais:
-				return current
-			else:
-				while current.next != self.head:
-					if hashCode == current.hashPais:
-						return current
-					current = current.next
+		if hashCode == current.hashPais:
+			return current
+		else:
+			while current.next != self.head:
 				if hashCode == current.hashPais:
 					return current
-				return None
-		else:
-			if hashCode == current.hashSigla:
+				current = current.next
+			if hashCode == current.hashPais:
 				return current
-			else:
-				while current.next != self.head:
-					if current.hashSigla == hashCode:
-						return current
-					current = current.next
-				if current.hashSigla == hashCode:
-					return current
-				return None
+			return None
 
-	def leftSearch(self, mode, hashCode):
+	def leftSearch(self, hashCode):
 		if self.head == None:
 			return None
 		current = self.head
-		if mode == 0:
-			if hashCode == current.hashPais:
-				return current
-			else:
-				while current.prev != self.head:
-					if hashCode == current.hashPais:
-						return current
-					current = current.prev
+		if hashCode == current.hashPais:
+			return current
+		else:
+			while current.prev != self.head:
 				if hashCode == current.hashPais:
 					return current
-				return None
-		else:
-			if current.hashSigla == hashCode:
+				current = current.prev
+			if hashCode == current.hashPais:
 				return current
-			else:
-				while current.prev != self.head:
-					if current.hashSigla == hashCode:
-						return current
-					current = current.prev
-				if current.hashSigla == hashCode:
-					return current
-				return None
+			return None
