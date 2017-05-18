@@ -13,10 +13,10 @@ def main(algo,nTask,nCities,start):
     else:
         G.read(nTask)
     start = time.time()
-    print(G.shortestRoute(algo).walked)
+    print(G.shortestRoute(algo))
     end = time.time()
     print(end-start)
     #G.render()
 
 if __name__ == '__main__':
-    main('dolly',2,2,0)
+    main('dolly',1,5,0)

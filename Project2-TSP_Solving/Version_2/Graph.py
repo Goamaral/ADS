@@ -74,7 +74,7 @@ class Graph:
             distances.append(aux)
             distanceTotal.append(sum(aux))
 
-        return [str(self.start)]+list(routes[distances.index(min(distances))])+[str(self.start)], distances, min(distanceTotal)
+        return min(distanceTotal)
 
     def dolly(self):
         marksLeft = [ int(x) for x in self.g.nodes() ]
@@ -84,7 +84,7 @@ class Graph:
         while True:
             successful,result = population.update()
             if successful:
-                return result
+                return result.walked
 
     def calcDistance(self,route):
         res = [int(self.g.edge[str(self.start)][route[0]]['weight'])]

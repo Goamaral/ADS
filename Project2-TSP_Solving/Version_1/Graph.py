@@ -46,7 +46,6 @@ class Graph:
 
     def write(self,nTask):
         nx.write_edgelist(self.g,path="tarefa_{}_{}.txt".format(nTask, self.nCities),delimiter=" - ")
-        print('Data outputed')
 
     def read(self,nTask):
         try:
@@ -55,11 +54,10 @@ class Graph:
             return False
         self.g = nx.DiGraph(H)
         return True
-        print('Data read')
 
     def shortestRoute(self,algo):
-        if algo == 'antColony':
-            return self.antColony()
+        if algo == 'dolly':
+            return self.dolly()
         elif algo == 'bruteForce':
             return self.bruteForce()
 
@@ -77,9 +75,9 @@ class Graph:
             distances.append(aux)
             distanceTotal.append(sum(aux))
 
-        return ['0']+list(routes[distances.index(min(distances))])+['0'], distances, min(distanceTotal)
+        return min(distanceTotal)
 
-    def antColony(self):
+    def dolly(self):
         marksLeft = self.g.nodes()
         marksLeft.remove(str(self.start))
         population = Population(self.g,[Dolly(self.g,[str(self.start)],marksLeft)])
@@ -88,7 +86,7 @@ class Graph:
             successful,result = population.update()
             if successful:
                 break
-        return result
+        return result.walked
 
     def calcDistance(self,route):
         res = [int(self.g.edge[str(self.start)][route[0]]['weight'])]
