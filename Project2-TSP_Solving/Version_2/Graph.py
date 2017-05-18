@@ -64,8 +64,8 @@ class Graph:
         routes = []
         distanceTotal = []
         distances = []
-        nodes = self.g.nodes()
-        nodes.remove(str(self.start))
+        nodes = [ int(x) for x in self.g.nodes() ]
+        nodes.remove(self.start)
 
         routes = list(itertools.permutations(nodes, len(nodes)))
 
