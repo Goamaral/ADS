@@ -1,0 +1,3 @@
+Para contornar todas as restrições de segurança impostas pelo Chrome decidimos servir os ficheiros usando um simples servidor de http.
+Para obter informações relativas aos recordes é necessário estar conectado à internet pois estes dados são fornecidos e enviados para um servidor.
+Para além destes detalhes, o jogo está disponivel online em http://make-gaming-great-again.herokuapp.com/ . O carregamento do conteúdo do site pode ser lento pois o servidor é gratuito.

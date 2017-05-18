@@ -48,7 +48,8 @@ def plotAlgorithm(max,step):
     ffit = numpy.polynomial.polynomial.Polynomial(coef)    # instead of np.poly1d
     plt.plot(x_new, ffit(x_new))
     #max 18
-    print(poly(coef, 18))
+    print(poly(coef, 10))
+    print(poly(coef, 11))
     plt.plot(resX, resY)
     plt.show()
 
@@ -59,5 +60,5 @@ def poly(coef,x):
     return res/10000000000
 
 if __name__ == '__main__':
-    main(1,8,0)
-    #plotAlgorithm(10,1)
+    #main(1,5,0)
+    plotAlgorithm(10,1)
