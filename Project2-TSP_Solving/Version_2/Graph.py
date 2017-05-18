@@ -1,7 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import sys
-import random
+import numpy
 import itertools
 from Dolly import Dolly
 from Population import Population
@@ -25,13 +25,12 @@ class Graph:
         if nWay == 1:
             for i in range(self.nCities):
                 for j in range(i+1, self.nCities):
-                    w = random.randint(1,50)
+                    w = numpy.random.randint(1,100)
                     self.connect([str(i),str(j),str(w)])
         elif nWay == 2:
             for i in range(self.nCities):
                 for j in range(i+1, self.nCities):
-                    w1 = random.randint(1,50)
-                    w2 = random.randint(1,50)
+                    [w1,w2] = numpy.random.randint(1,100,size=2)
                     self.connect([str(i),str(j),str(w1),str(w2)])
         else:
             raise TypeError
@@ -46,7 +45,6 @@ class Graph:
 
     def write(self,nTask):
         nx.write_edgelist(self.g,path="tarefa_{}_{}.txt".format(nTask, self.nCities),delimiter=" - ")
-        print('Data outputed')
 
     def read(self,nTask):
         try:
@@ -55,11 +53,10 @@ class Graph:
             return False
         self.g = nx.DiGraph(H)
         return True
-        print('Data read')
 
     def shortestRoute(self,algo):
-        if algo == 'antColony':
-            return self.antColony()
+        if algo == 'dolly':
+            return self.dolly()
         elif algo == 'bruteForce':
             return self.bruteForce()
 
@@ -79,7 +76,7 @@ class Graph:
 
         return [str(self.start)]+list(routes[distances.index(min(distances))])+[str(self.start)], distances, min(distanceTotal)
 
-    def antColony(self):
+    def dolly(self):
         marksLeft = [ int(x) for x in self.g.nodes() ]
         marksLeft.remove(self.start)
         population = Population(self.g,Dolly(self.g,[self.start],marksLeft))

@@ -14,7 +14,7 @@ class Dolly:
         return s
 
     def copy(self,toWalk,towards):
-        clone = Dolly(self.labirinth,[ i for i in self.marks ],[ i for i in self.marksLeft ])
+        clone = Dolly(self.labirinth,list(i for i in self.marks),list(i for i in self.marksLeft))
         clone.walked = self.walked
         clone.toWalk = toWalk
         clone.towards = towards
