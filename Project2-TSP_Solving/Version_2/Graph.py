@@ -87,8 +87,8 @@ class Graph:
                 return result.walked
 
     def calcDistance(self,route):
-        res = [int(self.g.edge[str(self.start)][route[0]]['weight'])]
+        res = [int(self.g.edge[str(self.start)][str(route[0])]['weight'])]
         for i in range(len(route)-1):
-            res.append(int(self.g.edge[route[i]][route[i+1]]['weight']))
-        res.append(int(self.g.edge[route[-1]][str(self.start)]['weight']))
+            res.append(int(self.g.edge[str(route[i])][str(route[i+1])]['weight']))
+        res.append(int(self.g.edge[str(route[-1])][str(self.start)]['weight']))
         return res

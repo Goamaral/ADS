@@ -19,4 +19,4 @@ def main(algo,nTask,nCities,start):
     #G.render()
 
 if __name__ == '__main__':
-    main('dolly',1,5,0)
+    main('bruteForce',1,12,0)
