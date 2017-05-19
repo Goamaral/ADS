@@ -1,5 +1,3 @@
-import copy
-
 class Dolly:
     def __init__(self,labirinth,marks,marksLeft):
         self.labirinth = labirinth

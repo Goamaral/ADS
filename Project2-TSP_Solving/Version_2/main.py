@@ -1,8 +1,5 @@
 from Graph import Graph
 import time
-import numpy
-import matplotlib.pyplot as plt
-import math
 
 def main(algo,nTask,nCities,start):
     G = Graph(nCities,start)
@@ -16,7 +13,8 @@ def main(algo,nTask,nCities,start):
     print(G.shortestRoute(algo))
     end = time.time()
     print(end-start)
+    print(end-start)
     #G.render()
 
 if __name__ == '__main__':
-    main('bruteForce',1,12,0)
+    main('bruteForce',1,10,0)

@@ -1,6 +1,5 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-import sys
 import numpy
 import itertools
 from Dolly import Dolly
