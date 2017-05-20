@@ -9,6 +9,10 @@ class Dolly:
         self.toWalk = 0
         self.towards = None
 
+    def __str__(self):
+        s = 'Rota: {}\nDistancia: {}'.format(self.marks,self.walked)
+        return s
+
     def clone(self):
         clones = []
         roads = self.labirinth[self.marks[-1]]
@@ -20,6 +24,7 @@ class Dolly:
                 clones.append(clone)
         if len(clones) == 0:
             clone = copy.deepcopy(self)
+            print(roads)
             clone.toWalk = roads[self.marks[0]]['weight']
             clone.towards = self.marks[0]
             clones.append(clone)

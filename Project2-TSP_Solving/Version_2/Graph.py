@@ -2,8 +2,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy
 import itertools
-from Dolly import Dolly
-from Population import Population
+from . import Dolly as d
+from . import Population as p
 
 class Graph:
     def __init__(self, nCities, start):
@@ -42,12 +42,12 @@ class Graph:
         else:
             raise TypeError
 
-    def write(self,nTask):
-        nx.write_edgelist(self.g,path="tarefa_{}_{}.txt".format(nTask, self.nCities),delimiter=" - ")
+    def write(self,filename):
+        nx.write_edgelist(self.g,path="{}.txt".format(filename),delimiter=" - ")
 
-    def read(self,nTask):
+    def read(self,filename):
         try:
-            H = nx.read_edgelist(path="tarefa_{}_{}.txt".format(nTask, self.nCities),delimiter=" - ")
+            H = nx.read_edgelist(path="{}.txt".format(filename),delimiter=" - ")
         except FileNotFoundError:
             return False
         self.g = nx.DiGraph(H)
@@ -78,12 +78,12 @@ class Graph:
     def dolly(self):
         marksLeft = [ int(x) for x in self.g.nodes() ]
         marksLeft.remove(self.start)
-        population = Population(self.g,Dolly(self.g,[self.start],marksLeft))
+        population = p.Population(self.g,d.Dolly(self.g,[self.start],marksLeft))
 
         while True:
             successful,result = population.update()
             if successful:
-                return result.walked
+                return result
 
     def calcDistance(self,route):
         res = [int(self.g.edge[str(self.start)][str(route[0])]['weight'])]

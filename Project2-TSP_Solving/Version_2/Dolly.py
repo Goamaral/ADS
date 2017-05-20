@@ -8,7 +8,7 @@ class Dolly:
         self.towards = None
 
     def __str__(self):
-        s = '{} {} {} {} {}'.format(self.marks,self.marksLeft,self.walked,self.toWalk,self.towards)
+        s = 'Rota: {}\nDistancia: {}'.format(self.marks,self.walked)
         return s
 
     def copy(self,toWalk,towards):
