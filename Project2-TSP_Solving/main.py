@@ -28,7 +28,7 @@ def numberInput(label,interval=None):
     elif a >= interval[0] and (interval[1] == 'inf' or a < interval[1]):
             return a
     else:
-        printTitle('Valor Invalido - Não se encontra no intervalo de números válidos\n{} <= input < {}'.format(interval[0], interval[1]))
+        printTitle('Valor Invalido - Nao se encontra no intervalo de numeros validos\n{} <= input < {}'.format(interval[0], interval[1]))
         return numberInput(label,interval)
 
 def BinaryInput(label, accept):
@@ -52,10 +52,10 @@ def runAlgo(algo,G):
         G.write(filename)
 
 def main():
-    menuPrincipal = [ 'Número da tarefa', 'Tarefa 1', 'Tarefa 2', 'Sair' ]
-    menuTarefa = [ 'Algoritmo', 'Dolly (Criado por nós)', 'BruteForce', 'Voltar' ]
+    menuPrincipal = [ 'Numero da tarefa', 'Tarefa 1', 'Tarefa 2', 'Sair' ]
+    menuTarefa = [ 'Algoritmo', 'Dolly (Criado por nos)', 'BruteForce', 'Voltar' ]
     menuVersao = [ 'Versao', 'Versao base', 'Versao optimizada', 'Voltar' ]
-    inputsStartAlgo = [ 'Dados Algoritmo', 'Número cidades: ', 'Número cidade de começo: ', 'Criar mapa novo[S/n]: ' ]
+    inputsStartAlgo = [ 'Dados Algoritmo', 'Numero cidades: ', 'Numero cidade de comeco: ', 'Criar mapa novo[S/n]: ' ]
     inputsEndAlgo = [ 'Guardar mapa[S/n]: ' ]
 
     while True:
