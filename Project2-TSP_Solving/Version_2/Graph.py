@@ -73,7 +73,11 @@ class Graph:
             distances.append(aux)
             distanceTotal.append(sum(aux))
 
-        return min(distanceTotal)
+        minDist = min(distanceTotal)
+        ind = distanceTotal.index(minDist)
+        route = [self.start] + list(routes[ind]) + [self.start]
+
+        return "Rota: {}\nDistancia: {}".format(route,minDist)
 
     def dolly(self):
         marksLeft = [ int(x) for x in self.g.nodes() ]

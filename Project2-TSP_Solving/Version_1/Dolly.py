@@ -24,7 +24,6 @@ class Dolly:
                 clones.append(clone)
         if len(clones) == 0:
             clone = copy.deepcopy(self)
-            print(roads)
             clone.toWalk = roads[self.marks[0]]['weight']
             clone.towards = self.marks[0]
             clones.append(clone)

@@ -60,7 +60,7 @@ def main():
 
     while True:
         task = menu(menuPrincipal)
-        if task == 1:
+        if task in [1,2]:
             while True:
                 algo = menu(menuTarefa)
                 if algo in [1,2]:
@@ -89,6 +89,8 @@ def main():
                                         G.generateMap(task)
                                         break
                                     mapRead = G.read(filename)
+                                start = numberInput(inputsStartAlgo[2], (0,len(G.g.nodes())))
+                                G.start = start
                             runAlgo(algo,G)
                             break
                         elif version == 3:
@@ -99,8 +101,6 @@ def main():
                     break
                 else:
                     printTitle('Opcao Invalida')
-        elif task == 2:
-            break
         elif task == 3:
             break
         else:

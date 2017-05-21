@@ -75,13 +75,16 @@ class Graph:
             distances.append(aux)
             distanceTotal.append(sum(aux))
 
-        return min(distanceTotal)
+        minDist = min(distanceTotal)
+        ind = distanceTotal.index(minDist)
+        route = [self.start] + list(routes[ind]) + [self.start]
+
+        return "Rota: {}\nDistancia: {}".format(route,minDist)
 
     def dolly(self):
         marksLeft = self.g.nodes()
         marksLeft.remove(str(self.start))
         population = p.Population(self.g,[d.Dolly(self.g,[str(self.start)],marksLeft)])
-
         while True:
             successful,result = population.update()
             if successful:
