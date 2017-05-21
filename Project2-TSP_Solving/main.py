@@ -48,7 +48,7 @@ def runAlgo(algo,G):
     print('Tempo: ', end-start)
     saveMap = BinaryInput('Guardar mapa[S/n]: ', 'Ss')
     if saveMap:
-        filename = readLine('Nome do ficheiro[Enter para gerar mapa]: ')
+        filename = readLine('Nome do ficheiro: ')
         G.write(filename)
 
 def main():
@@ -84,7 +84,7 @@ def main():
                             else:
                                 mapRead = False
                                 while not mapRead:
-                                    filename = readLine('Nome do ficheiro[Enter para gerar mapa]: ')
+                                    filename = readLine('Nome do ficheiro: ')
                                     if filename == '':
                                         G.generateMap(task)
                                         break

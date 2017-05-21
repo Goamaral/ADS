@@ -1,19 +1,9 @@
-import _thread
-import time
-import math
-
 class Population:
     def __init__(self,labirinth,sheep):
         self.labirinth = labirinth
         self.ready = []
         self.walking = []
         self.ready = [sheep]
-        #_thread.start_new_thread(self.printSheep, ())
-
-    def printSheep(self):
-        while True:
-            print(len(self.walking), math.factorial(len(self.labirinth.nodes())))
-            time.sleep(1)
 
     def update(self):
         sheep = []

@@ -1,7 +1,5 @@
 import networkx as nx
-import matplotlib.pyplot as plt
-import sys
-import random
+import numpy
 import itertools
 from . import Dolly as d
 from . import Population as p
@@ -13,25 +11,17 @@ class Graph:
         self.nCities = nCities
         self.g.add_nodes_from([str(x) for x in range(nCities)])
 
-    def render(self):
-        new_labels = dict(map(lambda x:((x[0],x[1]), str(x[2]['weight'])), self.g.edges(data = True)))
-        pos = nx.spring_layout(self.g)
-        nx.draw_networkx(self.g, pos=pos)
-        nx.draw_networkx_edge_labels(self.g, pos=pos, edge_labels = new_labels)
-        nx.draw_networkx_edges(self.g, pos)
-        plt.show()
-
     def generateMap(self,nWay):
         if nWay == 1:
             for i in range(self.nCities):
                 for j in range(i+1, self.nCities):
-                    w = random.randint(1,50)
+                    w = numpy.random.randint(1,50)
                     self.connect([str(i),str(j),str(w)])
         elif nWay == 2:
             for i in range(self.nCities):
                 for j in range(i+1, self.nCities):
-                    w1 = random.randint(1,50)
-                    w2 = random.randint(1,50)
+                    w1 = numpy.random.randint(1,50)
+                    w2 = numpy.random.randint(1,50)
                     self.connect([str(i),str(j),str(w1),str(w2)])
         else:
             raise TypeError

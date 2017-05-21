@@ -13,8 +13,6 @@ def main(algo,nTask,nCities,start):
     print(G.shortestRoute(algo))
     end = time.time()
     print(end-start)
-    print(end-start)
-    #G.render()
 
 if __name__ == '__main__':
-    main('bruteForce',1,10,0)
+    main('dolly',1,5,0)
